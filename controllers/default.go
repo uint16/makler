@@ -14,7 +14,6 @@ func (c *MainController) activeContent(view string) {
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["NavBar"] = "navbar.html"
 	c.LayoutSections["MainContent"] = c.TplName
-
 }
 
 func (c *MainController) Get() {
