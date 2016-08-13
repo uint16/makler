@@ -45,6 +45,13 @@ label-wrap {
     white-space: normal;
 }
 
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 header {
   padding: 100px 0;
 }

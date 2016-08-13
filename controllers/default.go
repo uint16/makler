@@ -10,15 +10,18 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-// var o orm.Ormer
+var list []models.Swdata
 
 type MainController struct {
 	beego.Controller
 }
 
-// func init() {
-// 	o = orm.NewOrm()
-// }
+func init() {
+	o := orm.NewOrm()
+	o.Using("default")
+
+	o.Raw("SELECT name, id FROM swdata ORDER BY name ASC").QueryRows(&list)
+}
 
 func (c *MainController) activeContent(view string) {
 	c.Layout = "layout.tpl"
@@ -53,6 +56,7 @@ func (c *MainController) Profile() {
 	temp := strings.Replace(prof.Image, "%3A", ":", 1)
 	prof.Image = temp
 
+	c.Data["l"] = list
 	c.Data["p"] = prof
 	c.Data["e"] = edu
 	c.Data["i"] = emp
