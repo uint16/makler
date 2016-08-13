@@ -28,8 +28,36 @@ type Swdata struct {
 	Source     string
 }
 
+type EducationHistory struct {
+	MpId       int
+	SchoolName string `orm:"column(schoolName)"`
+	Level      string
+	Award      string
+	From       int
+	To         int
+	Id         int
+}
+
+type EmploymentHistory struct {
+	MpId        int
+	Institution string
+	Position    string
+	From        int
+	To          int
+	Id          int
+}
+
+type PoliticalExperience struct {
+	MpId        int
+	Institution string
+	Position    string
+	From        int
+	To          int
+	Id          int
+}
+
 func init() {
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
 	orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki.sqlite")
-	orm.RegisterModel(new(Swdata))
+	orm.RegisterModel(new(Swdata), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory))
 }

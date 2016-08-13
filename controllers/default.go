@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 
@@ -43,21 +42,21 @@ func (c *MainController) Profile() {
 
 	flash.Notice("Worraaaaa")
 	var prof models.Swdata
-	o.Raw("SELECT * FROM swdata WHERE id = ?", profileId).QueryRow(&prof)
+	var edu []models.EducationHistory
+	var pol []models.PoliticalExperience
+	var emp []models.EmploymentHistory
 
+	o.Raw("SELECT * FROM swdata WHERE id = ?", profileId).QueryRow(&prof)
+	o.Raw("SELECT * FROM education_history WHERE mp_id = ?", profileId).QueryRows(&edu)
+	o.Raw("SELECT * FROM political_experience WHERE mp_id = ?", profileId).QueryRows(&pol)
+	o.Raw("SELECT * FROM employment_history WHERE mp_id = ?", profileId).QueryRows(&emp)
 	temp := strings.Replace(prof.Image, "%3A", ":", 1)
 	prof.Image = temp
 
-	//	prof = models.Swdata{Id: 29}
-	//	err := o.Read(&prof)
-
-	// if err == orm.ErrNoRows {
-	// 	fmt.Println("No Data")
-	// } else {
-	fmt.Println(prof)
-	// }
-
 	c.Data["p"] = prof
+	c.Data["e"] = edu
+	c.Data["i"] = emp
+	c.Data["j"] = pol
 
 }
 
