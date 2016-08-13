@@ -1,11 +1,12 @@
 package main
 
 import (
-	_ "github.com/damagination/makler/routers"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	_ "github.com/damagination/makler/routers"
 )
 
 func main() {
+	orm.Debug = true
 	beego.Run()
 }
-
