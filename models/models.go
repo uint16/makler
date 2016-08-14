@@ -1,7 +1,10 @@
 package models
 
 import (
+	"time"
+
 	"github.com/astaxie/beego/orm"
+	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 )
 
@@ -56,8 +59,28 @@ type PoliticalExperience struct {
 	Id          int
 }
 
+type User struct {
+	Id       int
+	UserName string `orm:"unique"`
+	Email    string
+	Password string
+	RegKey   string
+	RegDate  time.Time `orm:"auto_now_add;type(datetime)"`
+	//	Comments []*Comment `orm:"reverse(many)"`
+}
+
+type Comment struct {
+	Id          int
+	CommenterId int // `orm:"rel(fk);null;on_delete(set_null)"`
+	ProfileId   int
+	Content     string
+	CommentTime time.Time `orm:"auto_now;type(datetime)"`
+}
+
 func init() {
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
+	orm.RegisterDriver("postgres", orm.DRPostgres)
 	orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki.sqlite")
-	orm.RegisterModel(new(Swdata), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory))
+	orm.RegisterDataBase("db2", "postgres", "user=damas dbname=data sslmode=disable")
+	orm.RegisterModel(new(Swdata), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory), new(User), new(Comment))
 }
