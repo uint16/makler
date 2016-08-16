@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"strconv"
-	"strings"
 
 	"github.com/damagination/makler/models"
 
@@ -10,7 +9,7 @@ import (
 	"github.com/astaxie/beego/orm"
 )
 
-var list []models.Swdata
+var list []models.Profile
 
 type MainController struct {
 	beego.Controller
@@ -20,7 +19,8 @@ func init() {
 	o := orm.NewOrm()
 	o.Using("default")
 
-	o.Raw("SELECT name, id FROM swdata ORDER BY name ASC").QueryRows(&list)
+	o.Raw("SELECT * FROM profile ORDER BY name ASC").QueryRows(&list)
+
 }
 
 func (c *MainController) activeContent(view string) {
@@ -33,10 +33,11 @@ func (c *MainController) activeContent(view string) {
 
 func (c *MainController) Get() {
 	c.activeContent("index")
+	c.Data["l"] = list
 }
 
 func (c *MainController) Profile() {
-	c.activeContent("index")
+	c.activeContent("profile")
 	profileId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 
 	o := orm.NewOrm()
@@ -44,17 +45,15 @@ func (c *MainController) Profile() {
 	flash := beego.NewFlash()
 
 	flash.Notice("Worraaaaa")
-	var prof models.Swdata
+	var prof models.Profile
 	var edu []models.EducationHistory
 	var pol []models.PoliticalExperience
 	var emp []models.EmploymentHistory
 
-	o.Raw("SELECT * FROM swdata WHERE id = ?", profileId).QueryRow(&prof)
+	o.Raw("SELECT * FROM profile WHERE id = ?", profileId).QueryRow(&prof)
 	o.Raw("SELECT * FROM education_history WHERE mp_id = ?", profileId).QueryRows(&edu)
 	o.Raw("SELECT * FROM political_experience WHERE mp_id = ?", profileId).QueryRows(&pol)
 	o.Raw("SELECT * FROM employment_history WHERE mp_id = ?", profileId).QueryRows(&emp)
-	temp := strings.Replace(prof.Image, "%3A", ":", 1)
-	prof.Image = temp
 
 	c.Data["l"] = list
 	c.Data["p"] = prof

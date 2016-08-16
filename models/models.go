@@ -16,7 +16,7 @@ import (
 // 	RegistrationDate time.Time `orm:"auto_now_add;type(datetime)"`
 // }
 
-type Swdata struct {
+type Profile struct {
 	Name       string
 	Group      string
 	Area       string
@@ -32,13 +32,13 @@ type Swdata struct {
 }
 
 type EducationHistory struct {
-	MpId       int
-	SchoolName string `orm:"column(schoolName)"`
-	Level      string
-	Award      string
-	From       int
-	To         int
-	Id         int
+	MpId        int
+	Institution string
+	Level       string
+	Award       string
+	From        int
+	To          int
+	Id          int
 }
 
 type EmploymentHistory struct {
@@ -59,20 +59,21 @@ type PoliticalExperience struct {
 	Id          int
 }
 
-type User struct {
-	Id       int
-	UserName string `orm:"unique"`
-	Email    string
-	Password string
-	RegKey   string
-	RegDate  time.Time `orm:"auto_now_add;type(datetime)"`
-	//	Comments []*Comment `orm:"reverse(many)"`
-}
+// type User struct {
+// 	Id       int
+// 	UserName string `orm:"unique"`
+// 	Email    string
+// 	Password string
+// 	RegKey   string
+// 	RegDate  time.Time `orm:"auto_now_add;type(datetime)"`
+// 	//	Comments []*Comment `orm:"reverse(many)"`
+// }
 
 type Comment struct {
-	Id          int
-	CommenterId int // `orm:"rel(fk);null;on_delete(set_null)"`
-	ProfileId   int
+	Id int
+	// CommenterId int // `orm:"rel(fk);null;on_delete(set_null)"`
+	// ProfileId   int
+	Commenter   string
 	Content     string
 	CommentTime time.Time `orm:"auto_now;type(datetime)"`
 }
@@ -80,7 +81,7 @@ type Comment struct {
 func init() {
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
 	orm.RegisterDriver("postgres", orm.DRPostgres)
-	orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki.sqlite")
+	orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki0.sqlite")
 	orm.RegisterDataBase("db2", "postgres", "user=damas dbname=data sslmode=disable")
-	orm.RegisterModel(new(Swdata), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory), new(User), new(Comment))
+	orm.RegisterModel(new(Profile), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory), new(Comment))
 }
