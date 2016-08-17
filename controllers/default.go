@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"os"
 	"strconv"
 
 	"github.com/damagination/makler/models"
@@ -10,16 +11,19 @@ import (
 )
 
 var list []models.Profile
+var imagesURL string
 
 type MainController struct {
 	beego.Controller
 }
 
 func init() {
+
+	imagesURL = os.Getenv("S3_BUCKET_URL")
 	o := orm.NewOrm()
 	o.Using("default")
 
-	o.Raw("SELECT * FROM profile ORDER BY name ASC").QueryRows(&list)
+	o.Raw("SELECT name, id FROM profile ORDER BY name ASC").QueryRows(&list)
 
 }
 
@@ -34,6 +38,7 @@ func (c *MainController) activeContent(view string) {
 func (c *MainController) Get() {
 	c.activeContent("index")
 	c.Data["l"] = list
+	c.Data["z"] = imagesURL
 }
 
 func (c *MainController) Profile() {
@@ -60,6 +65,7 @@ func (c *MainController) Profile() {
 	c.Data["e"] = edu
 	c.Data["i"] = emp
 	c.Data["j"] = pol
+	c.Data["z"] = imagesURL
 
 }
 

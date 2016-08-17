@@ -19,7 +19,7 @@
 
            {{ range $member := .l }}
            <div class="col-lg-4 col-sm-6 text-center">
-               <img class="img-circle img-responsive img-center" src= {{$member.Image}} alt="">
+               <img class="img-circle img-responsive img-center" src= "{{.z}}{{.$member.Id}}" alt="">
                <h3 style="text-overflow:ellipsis; display:inline;">{{$member.Name}}</h3>
                <h4><small>{{$member.Group}}, {{$member.Area}}</small></h4>
                <a href="/profile/{{$member.Id}}">View Profile</a>
