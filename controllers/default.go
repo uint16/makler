@@ -23,7 +23,7 @@ func init() {
 	o := orm.NewOrm()
 	o.Using("default")
 
-	o.Raw("SELECT name, id FROM profile ORDER BY name ASC").QueryRows(&list)
+	o.Raw("SELECT * FROM profile ORDER BY name ASC").QueryRows(&list)
 
 }
 
@@ -41,15 +41,26 @@ func (c *MainController) Get() {
 	c.Data["z"] = imagesURL
 }
 
+// func (c *MainController) Search() {
+// 	c.activeContent("index")
+// 	searchTerm := c.Ctx.Input.Param(":id")
+//
+// 	var s []models.Profile
+// 	o := orm.NewOrm()
+// 	o.Using("default")
+// 	o.Raw("SELECT name, id, area, group FROM profile WHERE name LIKE ? ORDER BY name ASC", searchTerm).QueryRows(&s)
+//
+// 	c.Data["l"] = s
+// 	c.Data["z"] = imagesURL
+// }
+
 func (c *MainController) Profile() {
 	c.activeContent("profile")
 	profileId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 
 	o := orm.NewOrm()
 	o.Using("default")
-	flash := beego.NewFlash()
 
-	flash.Notice("Worraaaaa")
 	var prof models.Profile
 	var edu []models.EducationHistory
 	var pol []models.PoliticalExperience
