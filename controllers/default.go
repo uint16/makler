@@ -8,6 +8,7 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego/utils/pagination"
 )
 
 var list []models.Profile
@@ -37,6 +38,10 @@ func (c *MainController) activeContent(view string) {
 
 func (c *MainController) Get() {
 	c.activeContent("index")
+
+	postsPerPage := 25
+	paginator := pagination.SetPaginator(c, postsPerPage, CountPosts())
+
 	c.Data["l"] = list
 	c.Data["z"] = imagesURL
 }
