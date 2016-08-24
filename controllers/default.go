@@ -8,7 +8,6 @@ import (
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	"github.com/astaxie/beego/utils/pagination"
 )
 
 var list []models.Profile
@@ -22,7 +21,7 @@ func init() {
 
 	imagesURL = os.Getenv("S3_BUCKET_URL")
 	o := orm.NewOrm()
-	o.Using("default")
+	o.Using("db2")
 
 	o.Raw("SELECT * FROM profile ORDER BY name ASC").QueryRows(&list)
 
@@ -39,11 +38,12 @@ func (c *MainController) activeContent(view string) {
 func (c *MainController) Get() {
 	c.activeContent("index")
 
-	postsPerPage := 25
-	paginator := pagination.SetPaginator(c, postsPerPage, CountPosts())
+	//postsPerPage := 25
+	//paginator := pagination.SetPaginator(c, postsPerPage, CountPosts())
 
 	c.Data["l"] = list
 	c.Data["z"] = imagesURL
+	c.Data["x"] = len(list) / 25
 }
 
 // func (c *MainController) Search() {
@@ -64,7 +64,7 @@ func (c *MainController) Profile() {
 	profileId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 
 	o := orm.NewOrm()
-	o.Using("default")
+	o.Using("db2")
 
 	var prof models.Profile
 	var edu []models.EducationHistory

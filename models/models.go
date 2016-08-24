@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+	"os"
 	"time"
 
 	"github.com/astaxie/beego/orm"
@@ -33,7 +35,7 @@ type Profile struct {
 
 type EducationHistory struct {
 	MpId        int
-	Institution string
+	Institution string `db:"schoolName"`
 	Level       string
 	Award       string
 	From        int
@@ -79,9 +81,14 @@ type Comment struct {
 }
 
 func init() {
+	db := os.Getenv("DB_NAME")
+	dbUser := os.Getenv("PG_USER")
+	dbPassword := os.Getenv("PG_PASSWORD")
+
+	connection := fmt.Sprintf("user=%s  password=%s dbname=%s sslmode=disable", dbUser, dbPassword, db)
 	orm.RegisterDriver("sqlite", orm.DRSqlite)
 	orm.RegisterDriver("postgres", orm.DRPostgres)
 	orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki0.sqlite")
-	orm.RegisterDataBase("db2", "postgres", "user=damas dbname=data sslmode=disable")
+	orm.RegisterDataBase("db2", "postgres", connection)
 	orm.RegisterModel(new(Profile), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory), new(Comment))
 }
