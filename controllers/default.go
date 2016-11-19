@@ -19,7 +19,7 @@ type MainController struct {
 func init() {
 
 	//	imagesURL = os.Getenv("S3_BUCKET_URL") - former heroku env variable for s3 bucket
-	imagesURL = "https://storage.googleapis.com/<your-bucket-name>/"
+	imagesURL = "https://storage.googleapis.com/wabunge/"
 	o := orm.NewOrm()
 	o.Using("db2")
 
