@@ -17,7 +17,7 @@
 
            {{ range $member := .l }}
            <div class="col-lg-4 col-sm-6 text-center">
-               <img class="img-circle img-responsive img-center" src= "http://s3.amazonaws.com/wabunge/{{$member.Id}}.jpeg" alt="">
+               <img class="img-circle img-responsive img-center" src= "https://storage.googleapis.com/wabunge/{{$member.Id}}.jpeg" alt="">
                <h3 style="text-overflow:ellipsis; display:inline;">{{$member.Name}}</h3>
                <h4><small>{{$member.Group}}, {{$member.Area}}</small></h4>
                <a href="/profile/{{$member.Id}}">View Profile</a>

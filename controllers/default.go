@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"os"
 	"strconv"
 
 	"github.com/damagination/makler/models"
@@ -19,7 +18,8 @@ type MainController struct {
 
 func init() {
 
-	imagesURL = os.Getenv("S3_BUCKET_URL")
+	//	imagesURL = os.Getenv("S3_BUCKET_URL") - former heroku env variable for s3 bucket
+	imagesURL = "https://storage.googleapis.com/<your-bucket-name>/"
 	o := orm.NewOrm()
 	o.Using("db2")
 
