@@ -1,15 +1,19 @@
 GOAL:
+
 The goal of this project is to have a one stop portal for all things parliament related.
 
 TODO:
+
 See github issues
 
 
 
 SETUP
+
 Install and setup GOPATH and GOROOT - https://golang.org/doc/install
 
 HOW TO RUN
+
 Makler is beego application. To run it you will need to install beego
 
 ```go get github.com/astaxie/beego```
@@ -33,3 +37,5 @@ To run in production, build the project and run the executable
 then
 
 ```./main```
+
+to run the application
