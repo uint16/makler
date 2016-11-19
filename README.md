@@ -34,9 +34,9 @@ To run in production, build the project and run the executable
 
 ```go build main.go```
 
-then
+then run
 
-```./main```
+``` ./main ```
 
 to run the application
 
