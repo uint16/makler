@@ -1,3 +1,11 @@
+GOAL:
+The goal of this project is to have a one stop portal for all things parliament related.
+
+TODO:
+See github issues
+
+
+
 SETUP
 Install and setup GOPATH and GOROOT - https://golang.org/doc/install
 
