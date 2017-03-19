@@ -3,21 +3,13 @@ package models
 import (
 	"fmt"
 	"os"
-	"time"
 
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-// type User struct {
-// 	Id               int64
-// 	UserName         string `orm:"unique"`
-// 	Email            string `orm:"unique"`
-// 	RegistrationKey  string
-// 	RegistrationDate time.Time `orm:"auto_now_add;type(datetime)"`
-// }
-
+//Profile member of parliament profile structure
 type Profile struct {
 	Name       string
 	Group      string
@@ -33,6 +25,7 @@ type Profile struct {
 	Source     string
 }
 
+//EducationHistory member of parliament education history structure
 type EducationHistory struct {
 	MpId        int
 	Institution string `db:"schoolName"`
@@ -43,6 +36,7 @@ type EducationHistory struct {
 	Id          int
 }
 
+//EmploymentHistory member of parliament employment history structure
 type EmploymentHistory struct {
 	MpId        int
 	Institution string
@@ -52,6 +46,7 @@ type EmploymentHistory struct {
 	Id          int
 }
 
+//PoliticalExperience member of parliament political experience structure
 type PoliticalExperience struct {
 	MpId        int
 	Institution string
@@ -71,14 +66,14 @@ type PoliticalExperience struct {
 // 	//	Comments []*Comment `orm:"reverse(many)"`
 // }
 
-type Comment struct {
-	Id int
-	// CommenterId int // `orm:"rel(fk);null;on_delete(set_null)"`
-	// ProfileId   int
-	Commenter   string
-	Content     string
-	CommentTime time.Time `orm:"auto_now;type(datetime)"`
-}
+// type Comment struct {
+// 	Id int
+// 	CommenterId int // `orm:"rel(fk);null;on_delete(set_null)"`
+// 	ProfileId   int
+// 	Commenter   string
+// 	Content     string
+// 	CommentTime time.Time `orm:"auto_now;type(datetime)"`
+// }
 
 func init() {
 	db := os.Getenv("DB_NAME")
@@ -90,5 +85,5 @@ func init() {
 	orm.RegisterDriver("postgres", orm.DRPostgres)
 	orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki0.sqlite")
 	orm.RegisterDataBase("db2", "postgres", connection)
-	orm.RegisterModel(new(Profile), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory), new(Comment))
+	orm.RegisterModel(new(Profile), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory))
 }

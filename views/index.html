@@ -1,26 +1,26 @@
-<!-- Page Content -->
-   <div class="container">
-       <!-- Introduction Row -->
-       <div class="row">
-           <div class="col-lg-12">
-               <h1 class="into">Makler
-                   <small>Know Your Representative!</small>
-               </h1>
-               <p>This project centralize and provide publicly available information of member of parliaments of the United Republic of Tanzania</p>
-           </div>
-       </div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="into">Makler
+                <small>Know Your Representative!</small>
+            </h1>
+            <p>This project centralize and provide publicly available information of member of parliaments of the United Republic
+                of Tanzania</p>
+        </div>
+    </div>
 
-       <div class="row">
-           <div class="col-lg-12">
-               <h2 class="page-header">All Members</h2>
-           </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">All Members</h2>
+        </div>
 
-           {{ range $member := .l }}
-           <div class="col-lg-4 col-sm-6 text-center">
-               <img class="img-circle img-responsive img-center" src= "https://storage.googleapis.com/wabunge/{{$member.Id}}.jpeg" alt="">
-               <h3 style="text-overflow:ellipsis; display:inline;">{{$member.Name}}</h3>
-               <h4><small>{{$member.Group}}, {{$member.Area}}</small></h4>
-               <a href="/profile/{{$member.Id}}">View Profile</a>
-           </div>
-           {{ end }}
-       </div>
+        {{ range $member := .l }}
+        <div class="col-lg-4 col-sm-6 text-center">
+            <a href="/profile/{{$member.Id}}">
+                <img class="img-circle img-responsive img-center" src="https://storage.googleapis.com/wabunge/{{$member.Id}}.jpeg" alt="">
+            </a>
+            <h3 style="text-overflow:ellipsis; display:inline;">{{$member.Name}}</h3>
+            <h4><small>{{$member.Group}}, {{$member.Area}}</small></h4>
+        </div>
+        {{ end }}
+    </div>

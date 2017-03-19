@@ -12,8 +12,6 @@
 
   <body>
       {{.NavBar}}
-
       {{.MainContent}}
-
   </body>
 </html>

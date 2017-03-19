@@ -3,7 +3,7 @@ package controllers
 import (
 	"strconv"
 
-	"github.com/damagination/makler/models"
+	"projects/makler/models"
 
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
@@ -76,12 +76,12 @@ func (c *MainController) Profile() {
 	o.Raw("SELECT * FROM political_experience WHERE mp_id = ?", profileId).QueryRows(&pol)
 	o.Raw("SELECT * FROM employment_history WHERE mp_id = ?", profileId).QueryRows(&emp)
 
-	c.Data["l"] = list
-	c.Data["p"] = prof
-	c.Data["e"] = edu
-	c.Data["i"] = emp
-	c.Data["j"] = pol
-	c.Data["z"] = imagesURL
+	c.Data["membersList"] = list
+	c.Data["memberProfile"] = prof
+	c.Data["memberEducation"] = edu
+	c.Data["memberEmployment"] = emp
+	c.Data["memberExperience"] = pol
+	c.Data["imagesURL"] = imagesURL
 
 }
 
