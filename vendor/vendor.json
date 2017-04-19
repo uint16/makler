@@ -25,6 +25,24 @@
 			"path": "github.com/mattn/go-sqlite3",
 			"revision": "eac1dfa2a61ebccaa117538a5bb12044f6700cd0",
 			"revisionTime": "2017-03-05T14:02:06Z"
+		},
+		{
+			"checksumSHA1": "189BboC1lNAW0ja8oI+/VocooiA=",
+			"path": "projects/makler",
+			"revision": "3d87253ae66ad88d86dceed3bd4527500d39c9e3",
+			"revisionTime": "2017-04-19T18:42:46Z"
+		},
+		{
+			"checksumSHA1": "a05bgDRLVHB8zPoJwAAvXRs0FtQ=",
+			"path": "projects/makler/controllers",
+			"revision": "3d87253ae66ad88d86dceed3bd4527500d39c9e3",
+			"revisionTime": "2017-04-19T18:42:46Z"
+		},
+		{
+			"checksumSHA1": "D23K/PGdrpjsTN5I+qJA7+Gh5WQ=",
+			"path": "projects/makler/routers",
+			"revision": "3d87253ae66ad88d86dceed3bd4527500d39c9e3",
+			"revisionTime": "2017-04-19T18:42:46Z"
 		}
 	],
 	"rootPath": "projects/makler"
