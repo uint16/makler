@@ -1,6 +1,31 @@
 {
 	"comment": "",
 	"ignore": "test",
-	"package": [],
+	"package": [
+		{
+			"checksumSHA1": "2otmKRoQSKacroMbiWkrnUCr0JI=",
+			"path": "github.com/astaxie/beego",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "PQthACLhxceDVumWI0hZaE/OZiU=",
+			"path": "github.com/astaxie/beego/orm",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "5f/QhGjPgETWzP3aS9WdGFqoT1I=",
+			"path": "github.com/lib/pq",
+			"revision": "472a0745531a17dbac346e828b4c60e73ddff30c",
+			"revisionTime": "2017-03-13T20:04:23Z"
+		},
+		{
+			"checksumSHA1": "fM5Ysl+nlW/48x2boH2QZh08q8o=",
+			"path": "github.com/mattn/go-sqlite3",
+			"revision": "eac1dfa2a61ebccaa117538a5bb12044f6700cd0",
+			"revisionTime": "2017-03-05T14:02:06Z"
+		}
+	],
 	"rootPath": "projects/makler"
 }
