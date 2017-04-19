@@ -9,8 +9,50 @@
 			"revisionTime": "2017-03-06T13:59:04Z"
 		},
 		{
+			"checksumSHA1": "YNG2jEVIFD/0lKglDH3HkXBA1oo=",
+			"path": "github.com/astaxie/beego/config",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "wd4Mf8As2xBLT+/Q41fcqnN9kLs=",
+			"path": "github.com/astaxie/beego/context",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "O2+lFXZZioy6VFEAmId67eyVKWo=",
+			"path": "github.com/astaxie/beego/grace",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "cNkTEA618ZjfoGplBhuLzXrNIWg=",
+			"path": "github.com/astaxie/beego/logs",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
 			"checksumSHA1": "PQthACLhxceDVumWI0hZaE/OZiU=",
 			"path": "github.com/astaxie/beego/orm",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "K5wG01CX2TKm+a+qKYxdfotSTKM=",
+			"path": "github.com/astaxie/beego/session",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "pP5Hj63keKtOQWl/3fyoF0TxeDk=",
+			"path": "github.com/astaxie/beego/toolbox",
+			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
+			"revisionTime": "2017-03-06T13:59:04Z"
+		},
+		{
+			"checksumSHA1": "epd3Y7nD7QVzTW0ppwK+q4pKo/4=",
+			"path": "github.com/astaxie/beego/utils",
 			"revision": "323a1c4214101331a4b71922c23d19b7409ac71f",
 			"revisionTime": "2017-03-06T13:59:04Z"
 		},
@@ -21,28 +63,22 @@
 			"revisionTime": "2017-03-13T20:04:23Z"
 		},
 		{
+			"checksumSHA1": "Gk3jTNQ5uGDUE0WMJFWcYz9PMps=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "472a0745531a17dbac346e828b4c60e73ddff30c",
+			"revisionTime": "2017-03-13T20:04:23Z"
+		},
+		{
 			"checksumSHA1": "fM5Ysl+nlW/48x2boH2QZh08q8o=",
 			"path": "github.com/mattn/go-sqlite3",
 			"revision": "eac1dfa2a61ebccaa117538a5bb12044f6700cd0",
 			"revisionTime": "2017-03-05T14:02:06Z"
 		},
 		{
-			"checksumSHA1": "189BboC1lNAW0ja8oI+/VocooiA=",
-			"path": "projects/makler",
-			"revision": "3d87253ae66ad88d86dceed3bd4527500d39c9e3",
-			"revisionTime": "2017-04-19T18:42:46Z"
-		},
-		{
-			"checksumSHA1": "a05bgDRLVHB8zPoJwAAvXRs0FtQ=",
-			"path": "projects/makler/controllers",
-			"revision": "3d87253ae66ad88d86dceed3bd4527500d39c9e3",
-			"revisionTime": "2017-04-19T18:42:46Z"
-		},
-		{
-			"checksumSHA1": "D23K/PGdrpjsTN5I+qJA7+Gh5WQ=",
-			"path": "projects/makler/routers",
-			"revision": "3d87253ae66ad88d86dceed3bd4527500d39c9e3",
-			"revisionTime": "2017-04-19T18:42:46Z"
+			"checksumSHA1": "Y+HGqEkYM15ir+J93MEaHdyFy0c=",
+			"path": "golang.org/x/net/context",
+			"revision": "a6577fac2d73be281a500b310739095313165611",
+			"revisionTime": "2017-03-08T20:54:49Z"
 		}
 	],
 	"rootPath": "projects/makler"

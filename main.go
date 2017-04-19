@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	_ "routers"
+	_ "projects/makler/routers"
 
 	"github.com/astaxie/beego"
 )
