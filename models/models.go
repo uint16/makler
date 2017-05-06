@@ -56,25 +56,6 @@ type PoliticalExperience struct {
 	Id          int
 }
 
-// type User struct {
-// 	Id       int
-// 	UserName string `orm:"unique"`
-// 	Email    string
-// 	Password string
-// 	RegKey   string
-// 	RegDate  time.Time `orm:"auto_now_add;type(datetime)"`
-// 	//	Comments []*Comment `orm:"reverse(many)"`
-// }
-
-// type Comment struct {
-// 	Id int
-// 	CommenterId int // `orm:"rel(fk);null;on_delete(set_null)"`
-// 	ProfileId   int
-// 	Commenter   string
-// 	Content     string
-// 	CommentTime time.Time `orm:"auto_now;type(datetime)"`
-// }
-
 func init() {
 	db := os.Getenv("DB_NAME")
 	dbUser := os.Getenv("PG_USER")

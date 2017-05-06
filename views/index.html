@@ -14,10 +14,10 @@
             <h2 class="page-header">All Members</h2>
         </div>
 
-        {{ range $member := .l }}
+        {{ range $member := .list }}
         <div class="col-lg-4 col-sm-6 text-center">
             <a href="/profile/{{$member.Id}}">
-                <img class="img-circle img-responsive img-center" src="https://storage.googleapis.com/wabunge/{{$member.Id}}.jpeg" alt="">
+                <img class="img-circle img-responsive img-center" src="{{.assets}}/{{$member.Id}}.jpeg" alt="">
             </a>
             <h3 style="text-overflow:ellipsis; display:inline;">{{$member.Name}}</h3>
             <h4><small>{{$member.Group}}, {{$member.Area}}</small></h4>

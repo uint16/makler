@@ -17,7 +17,7 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Members <span class="caret"></span></a>
         <ul class="dropdown-menu scrollable-menu" role="menu">
-          {{range $record := .l}}
+          {{range $record := .list}}
             <li><a href="/profile/{{$record.Id}}">{{$record.Name}}</a></li>
           {{ end }}
         </ul>
