@@ -1,3 +1,9 @@
+
+DEMO
+
+Demo application for this repo is running at https://makleri.herokuapp.com
+
+
 GOAL:
 
 The goal of this project is to have a one stop portal for all things parliament related.
@@ -40,7 +46,3 @@ then run
 
 to run the application
 
-
-DEMO
-
-Demo application for this repo is running at https://makleri.herokuapp.com
