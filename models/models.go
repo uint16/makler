@@ -1,6 +1,10 @@
 package models
 
 import (
+	"fmt"
+	"os"
+
+	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
@@ -54,14 +58,20 @@ type PoliticalExperience struct {
 }
 
 func init() {
-	//db := os.Getenv("DB_NAME")
-	//dbUser := os.Getenv("PG_USER")
-	//dbPassword := os.Getenv("PG_PASSWORD")
 
-	//connection := fmt.Sprintf("user=%s  password=%s dbname=%s sslmode=disable", dbUser, dbPassword, db)
-	orm.RegisterDriver("sqlite", orm.DRSqlite)
-	//orm.RegisterDriver("postgres", orm.DRPostgres)
-	orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki0.sqlite")
-	//orm.RegisterDataBase("db2", "postgres", connection)
+	if beego.BConfig.RunMode == "prod" {
+		db := os.Getenv("DB_NAME")
+		dbUser := os.Getenv("PG_USER")
+		dbPassword := os.Getenv("PG_PASSWORD")
+
+		connection := fmt.Sprintf("user=%s  password=%s dbname=%s sslmode=disable", dbUser, dbPassword, db)
+
+		orm.RegisterDriver("postgres", orm.DRPostgres)
+		orm.RegisterDataBase("db2", "postgres", connection)
+	} else {
+		orm.RegisterDriver("sqlite", orm.DRSqlite)
+		orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki0.sqlite")
+	}
+
 	orm.RegisterModel(new(Profile), new(PoliticalExperience), new(EducationHistory), new(EmploymentHistory))
 }
