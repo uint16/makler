@@ -14,7 +14,7 @@
             <h2 class="page-header">All Members</h2>
         </div>
 
-        {{ range $member := .list }}
+        {{ range $member := .membersList }}
         <div class="col-lg-4 col-sm-6 text-center">
             <a href="/profile/{{$member.Id}}">
                 <img class="img-circle img-responsive img-center" src="{{$.assets}}/{{$member.Id}}.jpeg" alt="">

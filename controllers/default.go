@@ -25,7 +25,11 @@ func init() {
 	imagesURL = os.Getenv("ASSETS_URL")
 	ormer = orm.NewOrm()
 
-	ormer.Using("default")
+	if beego.BConfig.RunMode == "prod" {
+		ormer.Using("db2")
+	} else {
+		ormer.Using("default")
+	}
 
 	ormer.Raw("SELECT * FROM profile ORDER BY name ASC").QueryRows(&profiles)
 
@@ -42,7 +46,7 @@ func (controller *MainController) activeContent(view string) {
 //Get all users
 func (controller *MainController) Get() {
 	controller.activeContent("index")
-	controller.Data["list"] = profiles
+	controller.Data["membersList"] = profiles
 	controller.Data["assets"] = imagesURL
 }
 
@@ -50,8 +54,6 @@ func (controller *MainController) Get() {
 func (controller *MainController) Profile() {
 	controller.activeContent("profile")
 	profileID, _ := strconv.Atoi(controller.Ctx.Input.Param(":id"))
-
-	ormer.Using("default")
 
 	var profile models.Profile
 	var educationHistory []models.EducationHistory
