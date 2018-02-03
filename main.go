@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	_ "projects/makler/routers"
+	_ "github.com/uint16/makler/routers"
 
 	"github.com/astaxie/beego"
 )

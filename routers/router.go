@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"projects/makler/controllers"
+	"github.com/uint16/makler/controllers"
 
 	"github.com/astaxie/beego"
 )
