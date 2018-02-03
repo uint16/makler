@@ -13,6 +13,8 @@ import (
 var profiles []models.Profile
 var imagesURL string
 
+var ormer orm.Ormer
+
 //MainController abstraction of beego controller
 type MainController struct {
 	beego.Controller
@@ -21,10 +23,11 @@ type MainController struct {
 func init() {
 
 	imagesURL = os.Getenv("ASSETS_URL")
-	orm := orm.NewOrm()
-	orm.Using("default")
+	ormer = orm.NewOrm()
 
-	orm.Raw("SELECT * FROM profile ORDER BY name ASC").QueryRows(&profiles)
+	ormer.Using("default")
+
+	ormer.Raw("SELECT * FROM profile ORDER BY name ASC").QueryRows(&profiles)
 
 }
 
@@ -48,18 +51,17 @@ func (controller *MainController) Profile() {
 	controller.activeContent("profile")
 	profileID, _ := strconv.Atoi(controller.Ctx.Input.Param(":id"))
 
-	orm := orm.NewOrm()
-	orm.Using("default")
+	ormer.Using("default")
 
 	var profile models.Profile
 	var educationHistory []models.EducationHistory
 	var politicalExperienceHistory []models.PoliticalExperience
 	var employmentHistory []models.EmploymentHistory
 
-	orm.Raw("SELECT * FROM profile WHERE id = ?", profileID).QueryRow(&profile)
-	orm.Raw("SELECT * FROM education_history WHERE mp_id = ?", profileID).QueryRows(&educationHistory)
-	orm.Raw("SELECT * FROM political_experience WHERE mp_id = ?", profileID).QueryRows(&politicalExperienceHistory)
-	orm.Raw("SELECT * FROM employment_history WHERE mp_id = ?", profileID).QueryRows(&employmentHistory)
+	ormer.Raw("SELECT * FROM profile WHERE id = ?", profileID).QueryRow(&profile)
+	ormer.Raw("SELECT * FROM education_history WHERE mp_id = ?", profileID).QueryRows(&educationHistory)
+	ormer.Raw("SELECT * FROM political_experience WHERE mp_id = ?", profileID).QueryRows(&politicalExperienceHistory)
+	ormer.Raw("SELECT * FROM employment_history WHERE mp_id = ?", profileID).QueryRows(&employmentHistory)
 
 	controller.Data["membersList"] = profiles
 	controller.Data["memberProfile"] = profile
