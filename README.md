@@ -1,7 +1,7 @@
 
 DEMO
 
-Demo application for this repo is running at https://makleri.herokuapp.com
+Demo application to show some of public information available - https://makleri.herokuapp.com
 
 
 GOAL:
