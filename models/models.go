@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
+	"github.com/beego/beego/v2/client/orm"
+	"github.com/beego/beego/v2/server/web"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-//Profile member of parliament profile structure
+// Profile member of parliament profile structure
 type Profile struct {
 	Name       string
 	Group      string
@@ -26,7 +26,7 @@ type Profile struct {
 	Source     string
 }
 
-//EducationHistory member of parliament education history structure
+// EducationHistory member of parliament education history structure
 type EducationHistory struct {
 	MpId        int
 	Institution string `db:"schoolName"`
@@ -37,7 +37,7 @@ type EducationHistory struct {
 	Id          int
 }
 
-//EmploymentHistory member of parliament employment history structure
+// EmploymentHistory member of parliament employment history structure
 type EmploymentHistory struct {
 	MpId        int
 	Institution string
@@ -47,7 +47,7 @@ type EmploymentHistory struct {
 	Id          int
 }
 
-//PoliticalExperience member of parliament political experience structure
+// PoliticalExperience member of parliament political experience structure
 type PoliticalExperience struct {
 	MpId        int
 	Institution string
@@ -59,7 +59,7 @@ type PoliticalExperience struct {
 
 func init() {
 
-	if beego.BConfig.RunMode == "prod" {
+	if web.BConfig.RunMode == "prod" {
 		db := os.Getenv("DB_NAME")
 		dbUser := os.Getenv("PG_USER")
 		dbPassword := os.Getenv("PG_PASSWORD")

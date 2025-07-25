@@ -15,12 +15,15 @@
         </div>
 
         {{ range $member := .membersList }}
-        <div class="col-lg-4 col-sm-6 text-center">
+          <div class="col-lg-4 col-sm-6 text-center member-card mb-4">
             <a href="/profile/{{$member.Id}}">
-                <img class="img-circle img-responsive img-center" src="{{$.assets}}/{{$member.Id}}.jpeg" alt="">
+                <img class="img-circle img-responsive img-center" 
+                     src="{{$.assets}}/{{$member.Id}}.jpeg" 
+                     alt="Photo of {{$member.Name}}" 
+                     onerror="this.onerror=null;this.src='/static/placeholder.jpg';">
             </a>
-            <h3 style="text-overflow:ellipsis; display:inline;">{{$member.Name}}</h3>
+            <h3 class="member-name">{{$member.Name}}</h3>
             <h4><small>{{$member.Group}}, {{$member.Area}}</small></h4>
-        </div>
+          </div>
         {{ end }}
     </div>
