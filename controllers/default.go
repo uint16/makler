@@ -51,9 +51,9 @@ func (controller *MainController) Profile() {
 	var employmentHistory []models.EmploymentHistory
 
 	ormer.Raw("SELECT * FROM profile WHERE id = ?", profileID).QueryRow(&profile)
-	ormer.Raw("SELECT * FROM education_history WHERE mp_id = ?", profileID).QueryRows(&educationHistory)
-	ormer.Raw("SELECT * FROM political_experience WHERE mp_id = ?", profileID).QueryRows(&politicalExperienceHistory)
-	ormer.Raw("SELECT * FROM employment_history WHERE mp_id = ?", profileID).QueryRows(&employmentHistory)
+	ormer.Raw(`SELECT * FROM education_history WHERE mp_id = ? ORDER BY "to" DESC, "from" DESC`, profileID).QueryRows(&educationHistory)
+	ormer.Raw(`SELECT * FROM political_experience WHERE mp_id = ? ORDER BY "to" DESC, "from" DESC`, profileID).QueryRows(&politicalExperienceHistory)
+	ormer.Raw(`SELECT * FROM employment_history WHERE mp_id = ? ORDER BY "to" DESC, "from" DESC`, profileID).QueryRows(&employmentHistory)
 
 	controller.Data["membersList"] = profiles
 	controller.Data["memberProfile"] = profile

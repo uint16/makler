@@ -6,37 +6,181 @@
     </div>
   </div>
 
-  <div class="row align-items-center mb-3">
-    <div class="col-md-6">
+  <!-- Search row -->
+  <div class="row align-items-center g-2 mb-2">
+    <div class="col">
       <h2 class="mb-0">All Members</h2>
     </div>
-    <div class="col-md-6 mt-2 mt-md-0">
-      <input type="text" id="memberSearch" class="form-control" placeholder="Filter by name, party or area...">
+    <div class="col-12 col-sm-auto">
+      <input type="text" id="memberSearch" class="form-control" placeholder="Search by name, party or area...">
     </div>
   </div>
 
+  <!-- Filter + per-page row -->
+  <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+    <select id="filterParty" class="form-select form-select-sm" style="width: auto; min-width: 160px;">
+      <option value="">All Parties</option>
+    </select>
+    <select id="filterType" class="form-select form-select-sm" style="width: auto; min-width: 160px;">
+      <option value="">All Types</option>
+    </select>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <label for="perPage" class="form-label mb-0 text-muted small text-nowrap">Per page:</label>
+      <select id="perPage" class="form-select form-select-sm" style="width: auto;">
+        <option value="25" selected>25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="999">All</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Member grid -->
   <div class="row g-3" id="membersGrid">
     {{ range $member := .membersList }}
-    <div class="col-lg-3 col-md-4 col-sm-6 text-center member-card">
-      <a href="/profile/{{$member.Id}}" class="text-decoration-none text-dark d-block p-3 rounded h-100">
-        <img class="rounded-circle mx-auto d-block mb-2"
+    <div class="col-lg-3 col-md-4 col-sm-6 text-center member-card"
+      data-group="{{$member.Group}}"
+      data-type="{{$member.MemberType}}">
+      <a href="/profile/{{$member.Id}}" class="text-decoration-none text-dark d-flex flex-column align-items-center p-3 rounded h-100">
+        <img class="rounded-circle mb-2"
           src="{{$.assets}}/{{$member.Id}}.jpeg"
           alt="{{$member.Name}}"
-          style="width: 90px; height: 90px; object-fit: cover;"
-          onerror="this.src='/static/img/placeholder.png'">
+          data-party="{{$member.Group}}"
+          style="width: 90px; height: 90px; object-fit: cover; flex-shrink: 0;">
         <h6 class="mb-0">{{$member.Name}}</h6>
         <small class="text-muted">{{$member.Group}}, {{$member.Area}}</small>
       </a>
     </div>
     {{ end }}
   </div>
+
+  <!-- Pagination bar -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mt-4">
+    <small class="text-muted" id="paginationInfo"></small>
+    <ul class="pagination mb-0" id="paginationList"></ul>
+  </div>
 </div>
 
 <script>
-  document.getElementById('memberSearch').addEventListener('input', function () {
-    var q = this.value.toLowerCase();
-    document.querySelectorAll('.member-card').forEach(function (card) {
-      card.style.display = card.textContent.toLowerCase().includes(q) ? '' : 'none';
+(function () {
+  var PER_PAGE = 25;
+  var page     = 1;
+  var visible  = [];
+
+  var grid        = document.getElementById('membersGrid');
+  var info        = document.getElementById('paginationInfo');
+  var pagList     = document.getElementById('paginationList');
+  var search      = document.getElementById('memberSearch');
+  var partySelect = document.getElementById('filterParty');
+  var typeSelect  = document.getElementById('filterType');
+  var perPageSel  = document.getElementById('perPage');
+  var allCards    = [].slice.call(grid.querySelectorAll('.member-card'));
+
+  /* Populate a <select> with sorted unique values from a dataset key */
+  function populateSelect(el, key) {
+    Array.from(new Set(
+      allCards.map(function (c) { return c.dataset[key]; }).filter(Boolean)
+    )).sort().forEach(function (v) {
+      var opt = document.createElement('option');
+      opt.value = v;
+      opt.textContent = v;
+      el.appendChild(opt);
     });
+  }
+  populateSelect(partySelect, 'group');
+  populateSelect(typeSelect,  'type');
+
+  function applyFilters() {
+    var q     = search.value.trim().toLowerCase();
+    var party = partySelect.value;
+    var type  = typeSelect.value;
+
+    visible = allCards.filter(function (c) {
+      if (q     && c.textContent.toLowerCase().indexOf(q) === -1) return false;
+      if (party && c.dataset.group !== party)                       return false;
+      if (type  && c.dataset.type  !== type)                        return false;
+      return true;
+    });
+    page = 1;
+    render();
+  }
+
+  function render() {
+    var total = visible.length;
+    var pages = Math.max(1, Math.ceil(total / PER_PAGE));
+    if (page > pages) page = pages;
+    var start = (page - 1) * PER_PAGE;
+    var end   = start + PER_PAGE;
+    var shown = new Set(visible.slice(start, end));
+
+    allCards.forEach(function (c) { c.style.display = shown.has(c) ? '' : 'none'; });
+
+    info.textContent = total === 0
+      ? 'No members found'
+      : 'Showing ' + (start + 1) + '–' + Math.min(end, total) + ' of ' + total + ' members';
+
+    renderPager(pages);
+  }
+
+  function renderPager(pages) {
+    if (pages <= 1) { pagList.innerHTML = ''; return; }
+    var nums = pageNums(page, pages);
+    var html = pageBtn('«', page - 1, page === 1);
+    nums.forEach(function (n) {
+      html += n === '…'
+        ? '<li class="page-item disabled"><span class="page-link">…</span></li>'
+        : pageBtn(n, n, false, n === page);
+    });
+    html += pageBtn('»', page + 1, page === pages);
+    pagList.innerHTML = html;
+
+    pagList.querySelectorAll('a[data-page]').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var p = parseInt(this.getAttribute('data-page'), 10);
+        if (p >= 1 && p <= pages && p !== page) {
+          page = p;
+          render();
+          grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  }
+
+  function pageBtn(label, p, disabled, active) {
+    var cls   = 'page-item' + (disabled ? ' disabled' : '') + (active ? ' active' : '');
+    var inner = disabled
+      ? '<span class="page-link">' + label + '</span>'
+      : '<a class="page-link" href="#" data-page="' + p + '">' + label + '</a>';
+    return '<li class="' + cls + '">' + inner + '</li>';
+  }
+
+  function pageNums(cur, total) {
+    if (total <= 7) {
+      var r = []; for (var i = 1; i <= total; i++) r.push(i); return r;
+    }
+    var left = cur - 2, right = cur + 2, prev = null, out = [];
+    for (var i = 1; i <= total; i++) {
+      if (i === 1 || i === total || (i >= left && i <= right)) {
+        if (prev && i - prev > 1) out.push('…');
+        out.push(i);
+        prev = i;
+      }
+    }
+    return out;
+  }
+
+  /* Wire up events */
+  search.addEventListener('input', applyFilters);
+  partySelect.addEventListener('change', applyFilters);
+  typeSelect.addEventListener('change', applyFilters);
+  perPageSel.addEventListener('change', function () {
+    PER_PAGE = parseInt(this.value, 10);
+    page = 1;
+    render();
   });
+
+  visible = allCards.slice();
+  render();
+}());
 </script>

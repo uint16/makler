@@ -1,34 +1,59 @@
+<nav class="bg-light border-bottom py-2 px-3" aria-label="breadcrumb">
+  <ol class="breadcrumb mb-0 small">
+    <li class="breadcrumb-item"><a href="/">All Members</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{.memberProfile.Name}}</li>
+  </ol>
+</nav>
+
 <div class="container py-4">
   <div class="row g-4">
 
     <!-- Left: profile card -->
-    <div class="col-md-4">
-      <div class="card text-center mb-3">
+    <div class="col-md-4 col-lg-3">
+      <div class="card text-center">
         <div class="card-body">
           <img src="{{.assets}}/{{.memberProfile.Id}}.jpeg"
             class="rounded mb-3"
-            style="width: 180px; height: 180px; object-fit: cover;"
-            alt="{{.memberProfile.Name}}"
-            onerror="this.src='/static/img/placeholder.png'">
+            data-party="{{.memberProfile.Group}}"
+            style="width: 160px; height: 160px; object-fit: cover;"
+            alt="{{.memberProfile.Name}}">
           <h5 class="card-title mb-0">{{.memberProfile.Name}}</h5>
         </div>
         <ul class="list-group list-group-flush text-start">
-          <li class="list-group-item"><strong>Party:</strong> <span class="badge bg-secondary">{{.memberProfile.Group}}</span></li>
-          <li class="list-group-item"><strong>Area:</strong> {{.memberProfile.Area}}</li>
-          <li class="list-group-item"><strong>Type:</strong> <span class="badge bg-primary">{{.memberProfile.MemberType}}</span></li>
-          <li class="list-group-item"><strong>Born:</strong> {{.memberProfile.BirthDate}}</li>
-          <li class="list-group-item"><strong>Phone:</strong> {{.memberProfile.Phone}}</li>
-          <li class="list-group-item"><strong>Email:</strong> {{.memberProfile.Email}}</li>
-          <li class="list-group-item"><strong>Address:</strong> {{.memberProfile.Address}}</li>
+          <li class="list-group-item d-flex justify-content-between align-items-start gap-2">
+            <strong class="text-nowrap">Party</strong>
+            <span class="badge bg-secondary text-wrap text-end">{{.memberProfile.Group}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start gap-2">
+            <strong class="text-nowrap">Area</strong>
+            <span class="text-end text-break">{{.memberProfile.Area}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start gap-2">
+            <strong class="text-nowrap">Type</strong>
+            <span class="badge bg-primary text-wrap text-end">{{.memberProfile.MemberType}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start gap-2">
+            <strong class="text-nowrap">Born</strong>
+            <span class="text-end">{{.memberProfile.BirthDate}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start gap-2">
+            <strong class="text-nowrap">Phone</strong>
+            <span class="text-end text-break">{{.memberProfile.Phone}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start gap-2">
+            <strong class="text-nowrap">Email</strong>
+            <span class="text-end text-break">{{.memberProfile.Email}}</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-start gap-2">
+            <strong class="text-nowrap">Address</strong>
+            <span class="text-end text-break">{{.memberProfile.Address}}</span>
+          </li>
         </ul>
       </div>
-      <a href="/" class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-arrow-left"></i> All Members
-      </a>
     </div>
 
     <!-- Right: history tables -->
-    <div class="col-md-8">
+    <div class="col-md-8 col-lg-9">
 
       <div class="card mb-3">
         <div class="card-header"><h6 class="mb-0">Education History</h6></div>
@@ -53,7 +78,7 @@
                 <td>{{$record.To}}</td>
               </tr>
               {{else}}
-              <tr><td colspan="5" class="text-muted text-center">No records</td></tr>
+              <tr><td colspan="5" class="text-center text-muted py-3">No records</td></tr>
               {{end}}
             </tbody>
           </table>
@@ -81,7 +106,7 @@
                 <td>{{$record.To}}</td>
               </tr>
               {{else}}
-              <tr><td colspan="4" class="text-muted text-center">No records</td></tr>
+              <tr><td colspan="4" class="text-center text-muted py-3">No records</td></tr>
               {{end}}
             </tbody>
           </table>
@@ -109,7 +134,7 @@
                 <td>{{$record.To}}</td>
               </tr>
               {{else}}
-              <tr><td colspan="4" class="text-muted text-center">No records</td></tr>
+              <tr><td colspan="4" class="text-center text-muted py-3">No records</td></tr>
               {{end}}
             </tbody>
           </table>
