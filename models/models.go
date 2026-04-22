@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
+	"github.com/beego/beego/v2/client/orm"
 	_ "github.com/lib/pq"
 	_ "github.com/mattn/go-sqlite3"
 )
 
-//Profile member of parliament profile structure
+// Profile member of parliament profile structure
 type Profile struct {
 	Name       string
 	Group      string
@@ -26,7 +25,7 @@ type Profile struct {
 	Source     string
 }
 
-//EducationHistory member of parliament education history structure
+// EducationHistory member of parliament education history structure
 type EducationHistory struct {
 	MpId        int
 	Institution string `db:"schoolName"`
@@ -37,7 +36,7 @@ type EducationHistory struct {
 	Id          int
 }
 
-//EmploymentHistory member of parliament employment history structure
+// EmploymentHistory member of parliament employment history structure
 type EmploymentHistory struct {
 	MpId        int
 	Institution string
@@ -47,7 +46,7 @@ type EmploymentHistory struct {
 	Id          int
 }
 
-//PoliticalExperience member of parliament political experience structure
+// PoliticalExperience member of parliament political experience structure
 type PoliticalExperience struct {
 	MpId        int
 	Institution string
@@ -58,18 +57,15 @@ type PoliticalExperience struct {
 }
 
 func init() {
-
-	if beego.BConfig.RunMode == "prod" {
-		db := os.Getenv("DB_NAME")
+	dbName := os.Getenv("DB_NAME")
+	if dbName != "" {
 		dbUser := os.Getenv("PG_USER")
 		dbPassword := os.Getenv("PG_PASSWORD")
-
-		connection := fmt.Sprintf("user=%s  password=%s dbname=%s sslmode=disable", dbUser, dbPassword, db)
-
+		connection := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", dbUser, dbPassword, dbName)
 		orm.RegisterDriver("postgres", orm.DRPostgres)
-		orm.RegisterDataBase("db2", "postgres", connection)
+		orm.RegisterDataBase("default", "postgres", connection)
 	} else {
-		orm.RegisterDriver("sqlite", orm.DRSqlite)
+		orm.RegisterDriver("sqlite3", orm.DRSqlite)
 		orm.RegisterDataBase("default", "sqlite3", "database/scraperwiki0.sqlite")
 	}
 

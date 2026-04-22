@@ -5,18 +5,13 @@ import (
 
 	_ "github.com/uint16/makler/routers"
 
-	"github.com/astaxie/beego"
+	"github.com/beego/beego/v2/server/web"
 )
 
 func main() {
-
 	port := os.Getenv("PORT")
-	if len(port) == 0 {
+	if port == "" {
 		port = "8080"
-		beego.BConfig.RunMode = "dev"
-	} else {
-		beego.BConfig.RunMode = "prod"
 	}
-	port = ":" + port
-	beego.Run(port)
+	web.Run(":" + port)
 }

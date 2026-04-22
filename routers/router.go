@@ -3,10 +3,10 @@ package routers
 import (
 	"github.com/uint16/makler/controllers"
 
-	"github.com/astaxie/beego"
+	"github.com/beego/beego/v2/server/web"
 )
 
 func init() {
-	beego.Router("/", &controllers.MainController{})
-	beego.Router("/profile/:id([0-9]+)", &controllers.MainController{}, "get,post:Profile")
+	web.Router("/", &controllers.MainController{})
+	web.Router("/profile/:id([0-9]+)", &controllers.MainController{}, "get,post:Profile")
 }

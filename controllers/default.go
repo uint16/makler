@@ -6,33 +6,23 @@ import (
 
 	"github.com/uint16/makler/models"
 
-	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
+	"github.com/beego/beego/v2/client/orm"
+	"github.com/beego/beego/v2/server/web"
 )
 
 var profiles []models.Profile
 var imagesURL string
-
 var ormer orm.Ormer
 
-//MainController abstraction of beego controller
+// MainController abstraction of beego controller
 type MainController struct {
-	beego.Controller
+	web.Controller
 }
 
 func init() {
-
 	imagesURL = os.Getenv("ASSETS_URL")
 	ormer = orm.NewOrm()
-
-	if beego.BConfig.RunMode == "prod" {
-		ormer.Using("db2")
-	} else {
-		ormer.Using("default")
-	}
-
 	ormer.Raw("SELECT * FROM profile ORDER BY name ASC").QueryRows(&profiles)
-
 }
 
 func (controller *MainController) activeContent(view string) {
@@ -43,14 +33,14 @@ func (controller *MainController) activeContent(view string) {
 	controller.LayoutSections["MainContent"] = controller.TplName
 }
 
-//Get all users
+// Get lists all members
 func (controller *MainController) Get() {
 	controller.activeContent("index")
 	controller.Data["membersList"] = profiles
 	controller.Data["assets"] = imagesURL
 }
 
-//Profile get user profile by id
+// Profile returns a member's profile by id
 func (controller *MainController) Profile() {
 	controller.activeContent("profile")
 	profileID, _ := strconv.Atoi(controller.Ctx.Input.Param(":id"))
@@ -71,10 +61,4 @@ func (controller *MainController) Profile() {
 	controller.Data["memberEmployment"] = employmentHistory
 	controller.Data["memberExperience"] = politicalExperienceHistory
 	controller.Data["assets"] = imagesURL
-
-}
-
-//Login login
-func (controller *MainController) Login() {
-	controller.activeContent("login")
 }
